@@ -2,7 +2,7 @@ import React from 'react';
 
 const SelectedPlayers = () => {
   return (
-    <div>
+    <div className='max-w-300 mx-auto '>
       selected
     </div>
   );
