@@ -1,27 +1,28 @@
 import "./App.css";
 
+import AvailablePlyaers from "./components/AvailablePlyaers/AvailablePlyaers";
+import SelectedPlayers from "./components/SelectedPlayers/SelectedPlayers";
+import Navbar from "./components/Navbar/Navbar";
+import { Suspense } from "react";
+
+const fetchPlayers = async ()=>{
+  const res = fetch("/player.json")
+  return (await res).json()
+}
+
+
 function App() {
+  const playerPromise = fetchPlayers()
   return (
     <>
-      <div className="hover-3d ">
-        {/* content */}
-        <figure className="max-w-100 rounded-2xl">
-          <img
-            src="https://img.daisyui.com/images/stock/creditcard.webp"
-            alt="3D card"
-          />
-        </figure>
-        {/* 8 empty divs needed for the 3D effect */}
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        
-      </div>
+      <Navbar></Navbar>
+      
+
+      <Suspense fallback={<span className="loading loading-spinner loading-xl "></span>}>
+        <AvailablePlyaers playerPromise={playerPromise}></AvailablePlyaers>
+      </Suspense>
+
+      {/* <SelectedPlayers></SelectedPlayers> */}
     </>
   );
 }
